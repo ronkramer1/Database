@@ -204,18 +204,6 @@ class Client:
     def __init__(self, state=None):
         self.saver = Saver("dict.txt")
 
-    # def get_value(self, key):
-    #     if not self.saver.locked:
-    #         self.saver.locked = True
-    #         value = self.saver.get_value(key)
-    #         if value is None:
-    #             return 'No such key: {}'.format(key)
-    #         else:
-    #             return 'Key: {}, Value: {}'.format(key, value)
-    #         self.saver.locked = False
-    #     else:
-    #         self.get_value(key)
-
     def increment(self):
         with self.lock:
             Client.r_counter += 1
@@ -256,34 +244,6 @@ class Client:
                     self.lock.release()
 
             self.decrement()
-    # def get_value(self, key):
-    #     if not self.sav
-    #     er.locked and self.r_counter < 10:
-    #         self.r_counter += 1
-    #         print(self.r_counter)
-    #         if self.r_counter == 10:
-    #             self.saver.locked = True
-    #         time.sleep(10)
-    #         value = self.saver.get_value(key)
-    #         if value is None:
-    #             print('No such key: {}'.format(key))
-    #         else:
-    #             print('Key: {}, Value: {}'.format(key, value))
-    #         self.saver.locked = False
-    #         self.r_counter -= 1
-    #     else:
-    #         print("cannot access the database currently")
-
-    # def set_value(self, key, value):
-    #     if not self.saver.locked:
-    #         self.saver.locked = True
-    #         if self.saver.set_value(key, value):
-    #             return 'Key: {}, Value: {}'.format(key, value)
-    #         else:
-    #             return 'Key: {} already exists'.format(key)
-    #         self.saver.locked = False
-    #     else:
-    #         self.set_value(key, value)
 
     def set_value(self, key, value):
         if self.lock.locked():
@@ -301,18 +261,6 @@ class Client:
                     print("Couldn't set the value")
             finally:
                 self.lock.release()
-
-    # def set_value(self, key, value):
-    #     if not self.saver.locked:
-    #         self.saver.locked = True
-    #         time.sleep(10)
-    #         if self.saver.set_value(key, value):
-    #             print('Key: {}, Value: {}'.format(key, value))
-    #         else:
-    #             print('Key: {} already exists'.format(key))
-    #         self.saver.locked = False
-    #     else:
-    #         print("cannot access the database currently")
 
     def del_value(self, key):
         if self.lock.locked():
@@ -332,15 +280,3 @@ class Client:
                 self.saver.locked = False
             finally:
                 self.lock.release()
-
-    # def del_value(self, key):
-    #     if not self.saver.locked:
-    #         self.saver.locked = True
-    #         value = self.saver.del_value(key)
-    #         if value is None:
-    #             print('No such key: {}'.format(key))
-    #         else:
-    #             print('Key: {}, Value: {}'.format(key, value))
-    #         self.saver.locked = False
-    #     else:
-    #         print("cannot access the database currently")
